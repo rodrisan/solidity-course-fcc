@@ -10,18 +10,29 @@ import "./PriceConverter.sol";
 
 // Import from Github OR NPM
 
+// Transaction cost: 632328 gas
+// Making it gas efficient: use constant, inmutable
+// after making minimumUsd as constant: 612395 gas
+
 contract FundMe {
     using PriceConverter for uint256;
 
     // uint256 public minimumUsd = 50 * 1e18; // 1 * 10 ** 18
-    uint256 public minimumUsd = 50 * 10 ** 18;
+    uint256 public constant MINIMUM_USD = 50 * 10 ** 18;
+    // 2446 gas as public no constant
+    // 347 gas as constant
 
     address[] public funders;
-    address public owner;
+
+    // Immutable
+    address public immutable i_owner;
+    // Gas 2574 gas non immutable
+    // Gas: 439 gas as immutable
+
     mapping(address => uint256) public addressToAmountFunded;
 
     constructor() {
-        owner = msg.sender;
+        i_owner = msg.sender;
     }
 
     function fund() public payable {
@@ -44,7 +55,7 @@ contract FundMe {
 
         // Any previous process is undone.
         // getConversionRate(msg.value) is equivalent to msg.value.getConversionRate()
-        require(msg.value.getConversionRate() >= minimumUsd, "You need to spend more ETH!"); // 1e18 =1 * 10 ** 18
+        require(msg.value.getConversionRate() >= MINIMUM_USD, "You need to spend more ETH!"); // 1e18 =1 * 10 ** 18
         funders.push(msg.sender);
         addressToAmountFunded[msg.sender] = msg.value;
     }
@@ -80,7 +91,7 @@ contract FundMe {
     }
 
     modifier onlyOwner {
-        require(msg.sender == owner, "Sender is not owner!");
+        require(msg.sender == i_owner, "Sender is not owner!");
         _;
     }
 }
