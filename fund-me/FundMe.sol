@@ -10,6 +10,8 @@ import "./PriceConverter.sol";
 
 // Import from Github OR NPM
 
+error NotOwner();
+
 // Transaction cost: 632328 gas
 // Making it gas efficient: use constant, inmutable
 // after making minimumUsd as constant: 612395 gas
@@ -91,7 +93,9 @@ contract FundMe {
     }
 
     modifier onlyOwner {
-        require(msg.sender == i_owner, "Sender is not owner!");
+        // require(msg.sender == i_owner, "Sender is not owner!");
+        // require(msg.sender == i_owner, NotOwner());
+        if (msg.sender != i_owner) revert NotOwner();
         _;
     }
 }
