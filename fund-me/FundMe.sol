@@ -15,6 +15,7 @@ error NotOwner();
 // Transaction cost: 632328 gas
 // Making it gas efficient: use constant, inmutable
 // after making minimumUsd as constant: 612395 gas
+// after both optimisations: 589176 gas
 
 contract FundMe {
     using PriceConverter for uint256;
@@ -97,5 +98,29 @@ contract FundMe {
         // require(msg.sender == i_owner, NotOwner());
         if (msg.sender != i_owner) revert NotOwner();
         _;
+    }
+
+    // What happens if somenone sends this contract ETH without calling the fund method?
+    // receive()
+    // fallback()
+
+    // Explainer from: https://solidity-by-example.org/fallback/
+    // Ether is sent to contract
+    //      is msg.data empty?
+    //          /   \
+    //         yes  no
+    //         /     \
+    //    receive()?  fallback()
+    //     /   \
+    //   yes   no
+    //  /        \
+    //receive()  fallback()
+
+    fallback() external payable {
+        fund();
+    }
+
+    receive() external payable {
+        fund();
     }
 }
