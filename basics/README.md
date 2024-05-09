@@ -13,6 +13,3 @@
 ### 03. Fund Me
 + https://github.com/rodrisan/full-blockchain-solidity-course-js?tab=readme-ov-file#lesson-4-remix-fund-me
 + https://github.com/rodrisan/solidity-course-fcc/tree/main/basics/03-fund-me
-
-### 04. Ethers Simple Storage
-+ 
