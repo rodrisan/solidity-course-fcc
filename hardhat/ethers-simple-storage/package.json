@@ -1,0 +1,19 @@
+{
+  "name": "ethers-simple-storage",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^14.2.0",
+    "ethers": "^6.2.3",
+    "solc": "0.8.7-fixed",
+    "prettier": "^2.6.2",
+    "prettier-plugin-solidity": "^1.0.0",
+    "solc-js": "1.0.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1"
+  },
+  "scripts": {
+    "compile": "solcjs --bin --abi --include-path node_modules/ --base-path . -o . SimpleStorage.sol"
+  }
+}

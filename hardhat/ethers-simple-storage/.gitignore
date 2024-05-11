@@ -1,0 +1,6 @@
+*.abi
+*.bin
+node_modules
+.env
+.encryptedKey.json
+SimpleStorage_sol_*
