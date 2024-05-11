@@ -4,23 +4,22 @@
 
 ### Lesson 02. Simple Storage
 
-- https://github.com/rodrisan/full-blockchain-solidity-course-js?tab=readme-ov-file#lesson-2-welcome-to-remix-simple-storage
-- https://github.com/rodrisan/solidity-course-fcc/tree/main/basics/01-simple-storage
-- [Code](./basics/02-simple-storage/)
+- [Details](./basics/README.md)
 
-### Lesson 03. Storage Factory
+### Lesson 03. Fund Me
 
-- https://github.com/rodrisan/full-blockchain-solidity-course-js?tab=readme-ov-file#lesson-3-remix-storage-factory
-- [Code](./basics/03-storage-factory/)
+- [Details](./basics/README.md)
 
-### Lesson 04. Fund Me
+### Lesson 04. Storage Factory
 
-- https://github.com/rodrisan/full-blockchain-solidity-course-js?tab=readme-ov-file#lesson-4-remix-fund-me
-- [Code](./basics/04-fund-me/)
+- [Details](./basics/README.md)
 
 ## Hardhat
 
 ### Lesson 05. Ethers Simple Storage
 
-- https://github.com/rodrisan/full-blockchain-solidity-course-js?tab=readme-ov-file#lesson-5-ethersjs-simple-storage
-- [Code](./hardhat/05-ethers-simple-storage/)
+- [Details](./hardhat/README.md)
+
+### Lesson 06. Hardhat Simple Storage
+
+- [Details](./hardhat/README.md)
