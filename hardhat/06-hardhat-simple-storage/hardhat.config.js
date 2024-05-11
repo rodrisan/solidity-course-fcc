@@ -6,7 +6,7 @@ require('hardhat-gas-reporter');
 
 require('./tasks/block-number');
 require('./tasks/accounts');
-// require('solidity-coverage');
+require('solidity-coverage');
 // require('@nomicfoundation/hardhat-verify');
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
