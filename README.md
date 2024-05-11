@@ -4,22 +4,22 @@
 
 ### Lesson 02. Simple Storage
 
-- [Details](./basics/README.md)
+- [Details](./basics/)
 
 ### Lesson 03. Fund Me
 
-- [Details](./basics/README.md)
+- [Details](./basics/)
 
 ### Lesson 04. Storage Factory
 
-- [Details](./basics/README.md)
+- [Details](./basics/)
 
 ## Hardhat
 
 ### Lesson 05. Ethers Simple Storage
 
-- [Details](./hardhat/README.md)
+- [Details](./hardhat/)
 
 ### Lesson 06. Hardhat Simple Storage
 
-- [Details](./hardhat/README.md)
+- [Details](./hardhat/)

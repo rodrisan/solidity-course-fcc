@@ -10,6 +10,6 @@
 ## Lesson 06 - Hardhat Simple Storage
 
 - [Course](https://github.com/rodrisan/full-blockchain-solidity-course-js?tab=readme-ov-file#lesson-6-hardhat-simple-storage)
-- [Code](./05-ethers-simple-storage/)
+- [Code](./06-hardhat-simple-storage/)
 - [TypeScript Code](https://github.com/rodrisan/solidity-course-fcc/tree/typescript/hardhat/06-hardhat-simple-storage)
 - [Sepolia Testnet Contract](https://sepolia.etherscan.io/address/0xA42cD3C7c2B79B64AA3d103EAA235178712Ad408)
