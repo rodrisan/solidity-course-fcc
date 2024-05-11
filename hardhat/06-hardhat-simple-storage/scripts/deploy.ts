@@ -1,6 +1,6 @@
 // imports
-const { ethers, run, network } = require('hardhat');
-const { ETHERSCAN_API_KEY } = require('../utils/env');
+import { ethers, run, network } from 'hardhat';
+import { ETHERSCAN_API_KEY } from '../utils/env';
 
 // async main
 async function main() {
@@ -40,14 +40,14 @@ async function main() {
     console.log(`Updated value is ${updatedValue.toString()}`);
 }
 
-const verify = async (contractAddress, args) => {
+const verify = async (contractAddress: string, args: undefined[]) => {
     console.log('Verifying contract...');
     try {
         await run('verify:verify', {
             address: contractAddress,
             constructorArguments: args,
         });
-    } catch (e) {
+    } catch (e: any) {
         if (e.message.toLowerCase().includes('already verified')) {
             console.log('Already Verified!');
         } else {
