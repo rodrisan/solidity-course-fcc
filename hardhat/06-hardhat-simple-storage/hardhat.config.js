@@ -1,7 +1,10 @@
+require('dotenv').config();
+
 require('@nomiclabs/hardhat-waffle');
 require('@nomiclabs/hardhat-etherscan');
 // require('hardhat-gas-reporter');
-require('dotenv').config();
+require('./tasks/block-number');
+require('./tasks/accounts');
 // require('solidity-coverage');
 // require('@nomicfoundation/hardhat-verify');
 // You need to export an object to set up your config
