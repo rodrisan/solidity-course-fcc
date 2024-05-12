@@ -15,13 +15,16 @@ contract FundMe {
 
     mapping(address => uint256) public addressToAmountFunded;
 
-    constructor() {
+    AggregatorV3Interface public priceFeed;
+
+    constructor(address priceFeedAddress) {
         i_owner = msg.sender;
+        priceFeed = AggregatorV3Interface(priceFeedAddress);
     }
 
     function fund() public payable {
         require(
-            msg.value.getConversionRate() >= MINIMUM_USD,
+            msg.value.getConversionRate(priceFeed) >= MINIMUM_USD,
             'You need to spend more ETH!'
         ); // 1e18 =1 * 10 ** 18
         funders.push(msg.sender);
