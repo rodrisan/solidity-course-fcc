@@ -41,6 +41,8 @@ module.exports = {
         sepolia: {
             url: env.SEPOLIA_RPC_URL || '',
             accounts: env.PRIVATE_KEY !== undefined ? [env.PRIVATE_KEY] : [],
+            chainId: 11155111,
+            blockConfirmations: 6,
         },
     },
     gasReporter: {
@@ -50,8 +52,21 @@ module.exports = {
         coinmarketcap: env.COINMARKETCAP_API_KEY,
     },
     etherscan: {
-        apiKey: env.ETHERSCAN_API_KEY,
+        apiKey: {
+            sepolia: env.ETHERSCAN_API_KEY,
+        },
+        customChains: [
+            {
+                network: 'sepolia',
+                chainId: 11155111,
+                urls: {
+                    apiURL: 'https://api-sepolia.etherscan.io/api',
+                    browserURL: 'https://sepolia.etherscan.io',
+                },
+            },
+        ],
     },
+
     namedAccounts: {
         deployer: {
             default: 0,
