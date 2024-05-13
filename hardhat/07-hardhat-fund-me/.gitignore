@@ -1,5 +1,7 @@
 node_modules
 .env
+!.env.example
+!utils/env.js
 coverage
 coverage.json
 typechain
@@ -7,3 +9,4 @@ typechain
 #Hardhat files
 cache
 artifacts
+deployments/*
