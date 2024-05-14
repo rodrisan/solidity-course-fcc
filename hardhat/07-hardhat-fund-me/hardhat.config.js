@@ -49,7 +49,7 @@ module.exports = {
         currency: 'USD',
         enabled: env.REPORT_GAS !== undefined,
         noColors: true,
-        coinmarketcap: env.COINMARKETCAP_API_KEY,
+        // coinmarketcap: env.COINMARKETCAP_API_KEY,
     },
     etherscan: {
         apiKey: {
