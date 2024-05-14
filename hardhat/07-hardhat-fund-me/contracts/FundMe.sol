@@ -22,9 +22,9 @@ contract FundMe {
     // State variables
     uint256 public constant MINIMUM_USD = 50 * 10 ** 18;
     address public immutable i_owner;
-    address[] public funders;
-    mapping(address => uint256) public addressToAmountFunded;
-    AggregatorV3Interface public priceFeed;
+    address[] public s_funders;
+    mapping(address => uint256) public s_addressToAmountFunded;
+    AggregatorV3Interface public s_priceFeed;
 
     // Events (none by this time)
 
@@ -46,7 +46,7 @@ contract FundMe {
 
     constructor(address priceFeedAddress) {
         i_owner = msg.sender;
-        priceFeed = AggregatorV3Interface(priceFeedAddress);
+        s_priceFeed = AggregatorV3Interface(priceFeedAddress);
     }
 
     receive() external payable {
@@ -60,24 +60,26 @@ contract FundMe {
     /// @notice Funds our contract based on the ETH/USD price
     function fund() public payable {
         require(
-            msg.value.getConversionRate(priceFeed) >= MINIMUM_USD,
+            msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD,
             'You need to spend more ETH!'
         );
-        funders.push(msg.sender);
-        addressToAmountFunded[msg.sender] = msg.value;
+        // require(PriceConverter.getConversionRate(msg.value) >= MINIMUM_USD, "You need to spend more ETH!");
+        s_addressToAmountFunded[msg.sender] = msg.value;
+        s_funders.push(msg.sender);
     }
 
     function withdraw() public onlyOwner {
         for (
             uint256 funderIndex = 0;
-            funderIndex < funders.length;
+            funderIndex < s_funders.length;
             funderIndex++
         ) {
-            address funder = funders[funderIndex];
-            addressToAmountFunded[funder] = 0;
+            address funder = s_funders[funderIndex];
+            s_addressToAmountFunded[funder] = 0;
         }
-        funders = new address[](0);
-
+        s_funders = new address[](0);
+        // Transfer vs call vs Send
+        // payable(msg.sender).transfer(address(this).balance);
         (bool callSuccess, ) = payable(msg.sender).call{
             value: address(this).balance
         }('');
