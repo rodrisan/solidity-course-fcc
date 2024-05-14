@@ -3,6 +3,7 @@
 pragma solidity ^0.8.0;
 
 // 2. Imports
+import 'hardhat/console.sol';
 import '@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol';
 import './PriceConverter.sol';
 
@@ -75,6 +76,7 @@ contract FundMe {
             funderIndex++
         ) {
             address funder = s_funders[funderIndex];
+            console.log('funder', funder);
             s_addressToAmountFunded[funder] = 0;
         }
         s_funders = new address[](0);
