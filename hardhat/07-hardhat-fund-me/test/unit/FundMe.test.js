@@ -141,4 +141,11 @@ describe('FundMe', () => {
             ).to.be.revertedWith('FundMe__NotOwner');
         });
     });
+
+    describe('getVersion', function () {
+        it('returns the version of the contract', async () => {
+            const response = await fundMe.getVersion();
+            assert.equal(response, '0');
+        });
+    });
 });
