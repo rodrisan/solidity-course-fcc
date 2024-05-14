@@ -86,4 +86,9 @@ contract FundMe {
 
         require(callSuccess, 'Call failed');
     }
+
+
+    function getPriceFeed() public view returns (AggregatorV3Interface) {
+        return s_priceFeed;
+    }
 }
