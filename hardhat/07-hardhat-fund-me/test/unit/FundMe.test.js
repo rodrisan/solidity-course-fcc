@@ -148,4 +148,11 @@ describe('FundMe', () => {
             assert.equal(response, '0');
         });
     });
+
+    describe('getOwner', function () {
+        it('returns the owner of the contract', async () => {
+            const response = await fundMe.getOwner();
+            assert.equal(response, deployer);
+        });
+    });
 });

@@ -124,6 +124,10 @@ contract FundMe {
         return s_funders[index];
     }
 
+    function getOwner() public view returns (address) {
+        return i_owner;
+    }
+
     function getPriceFeed() public view returns (AggregatorV3Interface) {
         return s_priceFeed;
     }
