@@ -8,16 +8,24 @@
     "dotenv": "^10.0.0",
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.5.3",
-    "hardhat": "^2.8.3",
+    "hardhat": "^2.11.0",
     "hardhat-deploy": "^0.9.29",
     "hardhat-gas-reporter": "^1.0.7",
     "prettier": "^2.3.2",
     "prettier-plugin-solidity": "^1.0.0-beta.19",
     "solc": "0.8.7-fixed",
     "solhint": "^3.3.7",
-    "solidity-coverage": "^0.7.18"
+    "solidity-coverage": "^0.8.0"
   },
   "node": {
     "version": "v20.12.2"
+  },
+  "scripts": {
+    "test": "hardhat test",
+    "test:staging": "hardhat test --network sepolia",
+    "lint": "solhint 'contracts/**/*.sol'",
+    "lint:fix": "solhint 'contracts/**/*.sol' --fix",
+    "format": "prettier --write .",
+    "coverage": "hardhat coverage"
   }
 }
