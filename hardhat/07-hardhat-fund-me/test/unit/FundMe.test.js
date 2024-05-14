@@ -42,7 +42,7 @@ describe('FundMe', () => {
 
         it('adds funder to array of funders', async () => {
             await fundMe.fund({ value: sendValue });
-            const funder = await fundMe.s_funders(0);
+            const funder = await fundMe.getFunder(0);
             assert.equal(funder, deployer);
         });
     });
