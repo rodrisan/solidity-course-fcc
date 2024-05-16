@@ -40,9 +40,13 @@ module.exports = {
     networks: {
         sepolia: {
             url: env.SEPOLIA_RPC_URL || '',
-            accounts: env.PRIVATE_KEY !== undefined ? [env.PRIVATE_KEY] : [],
+            accounts:
+                env.SEPOLIA_PRIVATE_KEY !== undefined
+                    ? [env.SEPOLIA_PRIVATE_KEY]
+                    : [],
             chainId: 11155111,
             blockConfirmations: 6,
+            gas: 6000000,
         },
     },
     gasReporter: {
