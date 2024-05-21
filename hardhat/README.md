@@ -13,3 +13,10 @@
 - [Code](./06-hardhat-simple-storage/)
 - [TypeScript Code](https://github.com/rodrisan/solidity-course-fcc/tree/typescript/hardhat/06-hardhat-simple-storage)
 - [Sepolia Testnet Contract](https://sepolia.etherscan.io/address/0xA42cD3C7c2B79B64AA3d103EAA235178712Ad408)
+
+## Lesson 07 - Hardhat Fund Me
+
+- [Course](https://github.com/rodrisan/full-blockchain-solidity-course-js?tab=readme-ov-file#lesson-7-hardhat-fund-me)
+- [Code](./07-hardhat-fund-me/)
+- [TypeScript Code]() - Pending
+- [Sepolia Testnet Contract](https://sepolia.etherscan.io/address/0xb8705fef8a1387bcba188046d1b963fa0663b567)

@@ -23,3 +23,7 @@
 ### Lesson 06. Hardhat Simple Storage
 
 - [Details](./hardhat/)
+
+### Lesson 07. Hardhat Fund Me
+
+- [Details](./hardhat/)
