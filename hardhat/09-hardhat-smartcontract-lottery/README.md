@@ -1,35 +1,6 @@
-# Update: Head to Cyfrin Updraft
+# 09 Hardhat SmartContract Lottery
 
-> **ℹ️ Important:** This repo is no longer maintained, we invite all people learning Solidtiy to head to [Cyfrin Updraft](https://updraft.cyfrin.io/)! The 100% free #1 smart contract education platform on earth.
-
-# Hardhat Smartcontract Lottery (Raffle) FCC
-
-_This repo has been updated to work with Sepolia over Goerli._
-
-This is a section of the Javascript Blockchain/Smart Contract FreeCodeCamp Course.
-
-_[⌨️ (13:41:02) Lesson 9: Hardhat Smart Contract Lottery](https://www.youtube.com/watch?v=gyMwXuJrbJQ&t=49262s)_
-
-[Full Repo](https://github.com/smartcontractkit/full-blockchain-solidity-course-js)
-
--   [Hardhat Smartcontract Lottery (Raffle) FCC](#hardhat-smartcontract-lottery-raffle-fcc)
--   [Getting Started](#getting-started)
-    -   [Requirements](#requirements)
-    -   [Quickstart](#quickstart)
-    -   [Typescript](#typescript)
--   [Usage](#usage)
-    -   [Testing](#testing)
-        -   [Test Coverage](#test-coverage)
--   [Deployment to a testnet or mainnet](#deployment-to-a-testnet-or-mainnet)
-    -   [Estimate gas cost in USD](#estimate-gas-cost-in-usd)
-    -   [Verify on etherscan](#verify-on-etherscan)
-        -   [Typescript differences](#typescript-differences)
--   [Linting](#linting)
--   [Thank you!](#thank-you)
-
-This project is apart of the Hardhat FreeCodeCamp video.
-
-Checkout the full blockchain course video [here.](https://www.youtube.com/watch?v=gyMwXuJrbJQ)
+-   [Contract](https://sepolia.etherscan.io/address/0x2b3df5e4e281a3f48875f268ed1a4d69f0c8f4e4)
 
 # Getting Started
 
@@ -51,15 +22,6 @@ Checkout the full blockchain course video [here.](https://www.youtube.com/watch?
 ```
 git clone https://github.com/PatrickAlphaC/hardhat-smartcontract-lottery-fcc
 cd hardhat-smartcontract-lottery-fcc
-yarn
-```
-
-## Typescript
-
-If you want to get to typescript and you cloned the javascript version, just run:
-
-```
-git checkout typescript
 yarn
 ```
 
@@ -106,7 +68,7 @@ Head over to [vrf.chain.link](https://vrf.chain.link/) and setup a new subscript
 1. A subscription ID
 2. Your subscription should be funded with LINK
 
-3.2 ## IMPORTANT
+3.2 ## VERY IMPORTANT
 
 Currently there is not possible to create a v2.0 VRF via WebPage.
 
@@ -131,6 +93,10 @@ And copy / remember the contract address.
 Go back to [vrf.chain.link](https://vrf.chain.link) and under your subscription add `Add consumer` and add your contract address. You should also fund the contract with a minimum of 1 LINK.
 
 6. Register a Chainlink Keepers Upkeep
+
+## VERY IMPORTANT
+
+-   Now is [Link Automation](https://docs.chain.link/chainlink-automation)
 
 [You can follow the documentation if you get lost.](https://docs.chain.link/docs/chainlink-keepers/compatible-contracts/)
 
