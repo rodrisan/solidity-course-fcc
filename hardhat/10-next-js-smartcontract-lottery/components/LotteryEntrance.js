@@ -1,26 +1,24 @@
-import { contractAddresses, abi } from '../constants';
-// dont export from moralis when using react
-import { useMoralis, useWeb3Contract } from 'react-moralis';
 import { useEffect, useState } from 'react';
-import { useNotification } from 'web3uikit';
 import { ethers } from 'ethers';
+import { useWeb3Contract, useMoralis } from 'react-moralis';
+import { useNotification } from 'web3uikit';
+
+import { abi, contractAddresses } from '../constants';
 
 export default function LotteryEntrance() {
-    const { Moralis, isWeb3Enabled, chainId: chainIdHex } = useMoralis();
-    // These get re-rendered every time due to our connect button!
+    const { Moralis, isWeb3Enabled, chainId: chainIdHex, web3 } = useMoralis();
     const chainId = parseInt(chainIdHex);
-    // console.log(`ChainId is ${chainId}`)
     const raffleAddress = chainId in contractAddresses ? contractAddresses[chainId][0] : null;
+    const dispatch = useNotification();
 
-    // State hooks
-    // https://stackoverflow.com/questions/58252454/react-hooks-using-usestate-vs-just-variables
+    // useStates
     const [entranceFee, setEntranceFee] = useState('0');
     const [numberOfPlayers, setNumberOfPlayers] = useState('0');
     const [recentWinner, setRecentWinner] = useState('0');
     const [raffleState, setRaffleState] = useState(0);
+    const [userEntered, setUserEntered] = useState(0);
 
-    const dispatch = useNotification();
-
+    // Transactions
     const {
         runContractFunction: enterRaffle,
         data: enterTxResponse,
@@ -38,7 +36,7 @@ export default function LotteryEntrance() {
 
     const { runContractFunction: getEntranceFee } = useWeb3Contract({
         abi: abi,
-        contractAddress: raffleAddress, // specify the networkId
+        contractAddress: raffleAddress,
         functionName: 'getEntranceFee',
         params: {},
     });
@@ -64,6 +62,40 @@ export default function LotteryEntrance() {
         params: {},
     });
 
+    // Event listeners
+    async function listenForEvent(eventName, callback) {
+        const lottery = new ethers.Contract(raffleAddress, abi, web3);
+        console.log(`Listening for ${eventName} ...`);
+        await new Promise((resolve, reject) => {
+            lottery.once(eventName, async () => {
+                console.log(`${eventName} event triggered!`);
+                try {
+                    await callback();
+                    resolve();
+                } catch (error) {
+                    console.log(error);
+                    reject(error);
+                }
+            });
+        });
+    }
+
+    async function listenForWinnerToBePicked() {
+        await listenForEvent('WinnerPicked', updateUIValues);
+    }
+
+    async function listenForLotteryEntrance() {
+        await listenForEvent('RaffleEnter', () => {});
+    }
+
+    // useEffects
+    useEffect(() => {
+        if (isWeb3Enabled) {
+            updateUIValues();
+            listenForWinnerToBePicked();
+        }
+    }, [isWeb3Enabled, numberOfPlayers]);
+
     async function updateUIValues() {
         // Another way we could make a contract call:
         // const options = { abi, contractAddress: raffleAddress }
@@ -81,75 +113,68 @@ export default function LotteryEntrance() {
         setRaffleState(contractState);
     }
 
-    useEffect(() => {
-        if (isWeb3Enabled) {
-            updateUIValues();
-        }
-    }, [isWeb3Enabled]);
-    // no list means it'll update everytime anything changes or happens
-    // empty list means it'll run once after the initial rendering
-    // and dependencies mean it'll run whenever those things in the list change
-
-    // An example filter for listening for events, we will learn more on this next Front end lesson
-    // const filter = {
-    //     address: raffleAddress,
-    //     topics: [
-    //         // the name of the event, parnetheses containing the data type of each event, no spaces
-    //         utils.id("RaffleEnter(address)"),
-    //     ],
-    // }
-
-    const handleNewNotification = () => {
-        dispatch({
-            type: 'info',
-            message: 'Transaction Complete!',
-            title: 'Transaction Notification',
-            position: 'topR',
-            icon: 'bell',
-        });
+    const handleEnterLottery = async () => {
+        setUserEntered(true);
+        await enterRaffle({ onError: handleMetamaskError });
+        await listenForLotteryEntrance()
+            .then(() =>
+                dispatch({
+                    type: 'info',
+                    message: 'Transaction Complete!',
+                    title: 'Transaction Notification',
+                    position: 'topR',
+                    icon: 'bell',
+                })
+            )
+            .catch((error) => {
+                console.log(error);
+            });
+        setUserEntered(false);
     };
 
-    const handleSuccess = async (tx) => {
-        try {
-            await tx.wait(1);
-            updateUIValues();
-            handleNewNotification(tx);
-        } catch (error) {
-            console.log(error);
-        }
+    const handleMetamaskError = async () => {
+        setUserEntered(false);
     };
 
-    return (
-        <div className="p-5">
-            <h1 className="py-4 px-4 font-bold text-3xl">Lottery</h1>
-            {raffleAddress ? (
-                <>
+    // Render
+    const renderValidChainComponent = () => {
+        return (
+            <div className="py-3">
+                <div className="flex justify-start">
                     <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-auto"
-                        onClick={async () =>
-                            await enterRaffle({
-                                // onComplete:
-                                // onError:
-                                onSuccess: handleSuccess,
-                                onError: (error) => console.log(error),
-                            })
-                        }
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={handleEnterLottery}
                         disabled={isLoading || isFetching}
                     >
                         {isLoading || isFetching ? (
                             <div className="animate-spin spinner-border h-8 w-8 border-b-2 rounded-full"></div>
                         ) : (
-                            'Enter Raffle'
+                            <div>Enter Raffle</div>
                         )}
                     </button>
-                    <div>Entrance Fee: {ethers.utils.formatUnits(entranceFee, 'ether')} ETH</div>
-                    <div>The current number of players is: {numberOfPlayers}</div>
-                    <div>The most previous winner was: {recentWinner}</div>
-                    <div>Current State: {raffleState}</div>
-                </>
-            ) : (
-                <div>Please connect to a supported chain </div>
-            )}
-        </div>
+                    <div>
+                        {userEntered ? (
+                            <div className="bg-orange-200 italic py-4 px-4 rounded ml-2">
+                                Pending...
+                            </div>
+                        ) : (
+                            <div></div>
+                        )}
+                    </div>
+                </div>
+                <div>Entrance Fee: {ethers.utils.formatUnits(entranceFee, 'ether')} ETH</div>
+                <div>Number Of Players: {numberOfPlayers}</div>
+                <div>Recent Winner: {recentWinner}</div>
+                <div>Current State: {raffleState}</div>
+            </div>
+        );
+    };
+
+    const renderUnvalidChainComponent = () => {
+        return <div>No Lottery Address Detetched!</div>;
+    };
+
+    return (
+        <div>{raffleAddress ? renderValidChainComponent() : renderUnvalidChainComponent()}</div>
     );
 }
