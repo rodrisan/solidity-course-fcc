@@ -27,3 +27,11 @@
 ### Lesson 07. Hardhat Fund Me
 
 - [Details](./hardhat/)
+
+### Lesson 08. HTML Fund Me
+
+- [Details](./hardhat/)
+
+### Lesson 09. Hardhat SmartContract Lottery
+
+- [Details](./hardhat/)
