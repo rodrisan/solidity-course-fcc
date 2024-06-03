@@ -35,3 +35,15 @@
 ### Lesson 09. Hardhat SmartContract Lottery
 
 - [Details](./hardhat/)
+
+### Lesson 10. NextJS SmartContract Lottery
+
+- [Details](./hardhat/)
+
+### Lesson 11. Hardhat Starter Kit
+
+- [Details](./hardhat/)
+
+### Lesson 12. Hardhat ERC 20 Tokens
+
+- [Details](./hardhat/)

@@ -34,3 +34,27 @@
 - [Code](./09-hardhat-smartcontract-lottery/)
 - [Typescript]() - Pending
 - [Sepolia Testnet Contract](https://sepolia.etherscan.io/address/0x2b3df5e4e281a3f48875f268ed1a4d69f0c8f4e4)
+
+## Lesson 10 - NextJS SmartContract Lottery
+
+- [Course](https://github.com/rodrisan/full-blockchain-solidity-course-js?tab=readme-ov-file#lesson-10-nextjs-smart-contract-lottery-full-stack--front-end)
+- [Code](./10-next-js-smartcontract-lottery/)
+- [Typescript]() - Pending
+- [Sepolia Testnet Contract](https://sepolia.etherscan.io/address/0x2b3df5e4e281a3f48875f268ed1a4d69f0c8f4e4)
+
+## Lesson 11 - Hardhat Starter Kit
+
+- [Course](https://github.com/rodrisan/full-blockchain-solidity-course-js?tab=readme-ov-file#lesson-11-hardhat-starter-kit)
+- [Code](./11-hardhat-starter-kit/)
+- [Typescript](https://github.com/rodrisan/hardhat-starter-kit/tree/typescript)
+- [Sepolia Testnet Contract]() - None.
+
+## Lesson 12: Hardhat ERC 20 Tokens
+
+Important: Updated packages in order to automatically verify the contracts.
+
+- [Course](https://github.com/rodrisan/full-blockchain-solidity-course-js?tab=readme-ov-file#lesson-12-hardhat-erc20s)
+- [Code](./12-hardhat-erc-20/)
+- [Typescript]() - Pending
+- [Sepolia Contract: ManualTokenERC20](https://sepolia.etherscan.io/address/0x9496E900afbB059211694A6F1055fC583A7c3E65)
+- [Sepolia Contract: AToken](https://sepolia.etherscan.io/address/0xa84e778067d0ece6d64c9769e2f9b3647b09fb96)
