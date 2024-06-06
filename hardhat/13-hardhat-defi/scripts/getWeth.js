@@ -8,7 +8,7 @@ async function getWeth() {
     const iWeth = await ethers.getContractAt(
         'IWeth',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-        deployer,
+        deployer
     );
     const tx = await iWeth.deposit({ value: AMOUNT });
     await tx.wait(1);
@@ -17,4 +17,4 @@ async function getWeth() {
     console.log(`Got ${wethBalance.toString()} WETH`);
 }
 
-module.exports = { getWeth };
+module.exports = { getWeth, AMOUNT };
