@@ -42,7 +42,7 @@ const { developmentChains } = require('../../helper-hardhat-config');
               });
           });
 
-          describe('VIDEO: Basic NFT Unit Tests', function () {
+          describe('From the VIDEO: Basic NFT Unit Tests', function () {
               let basicNft, deployer;
 
               beforeEach(async () => {
