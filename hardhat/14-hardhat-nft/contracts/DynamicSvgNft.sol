@@ -1,20 +1,22 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.8;
 
-import '@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol';
-import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 // The new-version of "@openzeppelin/contracts": "^5.0.1", already has Base64.sol
 // import "@openzeppelin/contracts/utils/Base64.sol";
-import 'base64-sol/base64.sol';
+import "base64-sol/base64.sol";
+import "hardhat/console.sol";
 
 error ERC721Metadata__URI_QueryFor_NonExistentToken();
 
-contract DynamicSvgNft is ERC721 {
+contract DynamicSvgNft is ERC721, Ownable {
     uint256 private s_tokenCounter;
     string private s_lowImageURI;
     string private s_highImageURI;
 
-    mapping(uint256 => int256) public s_tokenIdToHighValues;
+    mapping(uint256 => int256) private s_tokenIdToHighValues;
     AggregatorV3Interface internal immutable i_priceFeed;
     event CreatedNFT(uint256 indexed tokenId, int256 highValue);
 
@@ -30,7 +32,7 @@ contract DynamicSvgNft is ERC721 {
     }
 
     function svgToImageURI(string memory svg) public pure returns (string memory) {
-        string memory baseUrl = 'data:image/svg+xml;base63,';
+        string memory baseUrl = 'data:image/svg+xml;base64,';
         string memory svgBase64Encoded = Base64.encode(bytes(string(abi.encodePacked(svg))));
         // ^0.8.12+ : string.concat(stringA, stringB) // Cool!
         return string(abi.encodePacked(baseUrl, svgBase64Encoded));
@@ -44,10 +46,10 @@ contract DynamicSvgNft is ERC721 {
         emit CreatedNFT(newTokenId, highValue);
     }
 
-    function tokenURI(uint256 tokenId) public view override returns (string memory) {
-        require(_exists(tokenId), 'URI query for nonexistent token');
-        // string memory imageURI = 'test';
-
+    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
+        if (!_exists(tokenId)) {
+            revert ERC721Metadata__URI_QueryFor_NonExistentToken();
+        }
         (, int256 price, , , ) = i_priceFeed.latestRoundData();
         string memory imageURI = s_lowImageURI;
         if (price >= s_tokenIdToHighValues[tokenId]) {
@@ -63,10 +65,10 @@ contract DynamicSvgNft is ERC721 {
                             abi.encodePacked(
                                 '{"name":"',
                                 name(),
-                                '", "description": "NFT that changes based on the ChainLink feed"',
-                                '"attributes": [{"trait_type": "coolness", "value": 100, "image": "',
+                                '", "description":"An NFT that changes based on the Chainlink Feed", ',
+                                '"attributes": [{"trait_type": "coolness", "value": 100}], "image":"',
                                 imageURI,
-                                '"}]'
+                                '"}'
                             )
                         )
                     )
