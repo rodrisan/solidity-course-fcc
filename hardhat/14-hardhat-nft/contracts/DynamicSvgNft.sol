@@ -47,9 +47,9 @@ contract DynamicSvgNft is ERC721, Ownable {
     }
 
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
-        if (!_exists(tokenId)) {
+        /* if (!_exists(tokenId)) {
             revert ERC721Metadata__URI_QueryFor_NonExistentToken();
-        }
+        } */
         (, int256 price, , , ) = i_priceFeed.latestRoundData();
         string memory imageURI = s_lowImageURI;
         if (price >= s_tokenIdToHighValues[tokenId]) {
