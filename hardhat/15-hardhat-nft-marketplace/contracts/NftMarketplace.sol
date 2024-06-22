@@ -106,7 +106,6 @@ contract NftMarketplace is ReentrancyGuard {
         external
         payable
         isListed(nftAddress, tokenId)
-        isNotOwner(nftAddress, tokenId, msg.sender)
         nonReentrant
     {
         Listing memory listedItem = s_listings[nftAddress][tokenId];
