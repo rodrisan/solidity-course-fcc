@@ -4,6 +4,8 @@ pragma solidity ^0.8.8;
 import '@openzeppelin/contracts/token/ERC721/IERC721.sol';
 import '@openzeppelin/contracts/security/ReentrancyGuard.sol';
 
+// [ ]: Check out https://github.com/Fantom-foundation/Artion-Contracts/blob/5c90d2bc0401af6fb5abf35b860b762b31dfee02/contracts/FantomMarketplace.sol
+// For a full decentralized nft marketplace
 error NftMarketplace__PriceNotMet(address nftAddress, uint256 tokenId, uint256 price);
 error NftMarketplace__ItemNotForSale(address nftAddress, uint256 tokenId);
 error NftMarketplace__NotListed(address nftAddress, uint256 tokenId);
@@ -12,6 +14,7 @@ error NftMarketplace__NoProceeds();
 error NftMarketplace__NotOwner();
 error NftMarketplace__NotApprovedForMarketplace();
 error NftMarketplace__PriceMustBeAboveZero();
+error NftMarketplace__IsNotOwner();
 
 contract NftMarketplace is ReentrancyGuard {
     struct Listing {
@@ -67,6 +70,19 @@ contract NftMarketplace is ReentrancyGuard {
         _;
     }
 
+    modifier isNotOwner(
+        address nftAddress,
+        uint256 tokenId,
+        address spender
+    ) {
+        IERC721 nft = IERC721(nftAddress);
+        address owner = nft.ownerOf(tokenId);
+        if (spender == owner) {
+            revert NftMarketplace__IsNotOwner();
+        }
+        _;
+    }
+
     function listItem(
         address nftAddress,
         uint256 tokenId,
@@ -86,12 +102,19 @@ contract NftMarketplace is ReentrancyGuard {
     function buyItem(
         address nftAddress,
         uint256 tokenId
-    ) external payable nonReentrant isListed(nftAddress, tokenId) {
+    )
+        external
+        payable
+        isListed(nftAddress, tokenId)
+        isNotOwner(nftAddress, tokenId, msg.sender)
+        nonReentrant
+    {
         Listing memory listedItem = s_listings[nftAddress][tokenId];
         if (msg.value < listedItem.price) {
             revert NftMarketplace__PriceNotMet(nftAddress, tokenId, listedItem.price);
         }
-        s_proceeds[listedItem.seller] = s_proceeds[listedItem.seller] + msg.value;
+        s_proceeds[listedItem.seller] += msg.value;
+        // [ ] Check this info https://fravoll.github.io/solidity-patterns/pull_over_push.html
         delete (s_listings[nftAddress][tokenId]);
         IERC721(nftAddress).safeTransferFrom(listedItem.seller, msg.sender, tokenId);
         emit ItemBought(msg.sender, nftAddress, tokenId, listedItem.price);
