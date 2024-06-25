@@ -1,3 +1,12 @@
+# 16 - Hardhat Upgrades
+
+## Contracts
+[Box ProxyAdmin Sepolia](https://sepolia.etherscan.io/address/0x5ba3c62a4bcdd3f3dd052a79e27d7b63b231f103)
+[Box Proxy Sepolia](https://sepolia.etherscan.io/address/0x53232E9DEA22bBd16a44638954B565376AA43A5f)
+
+[Box Sepolia](https://sepolia.etherscan.io/address/0x53232E9DEA22bBd16a44638954B565376AA43A5f)
+[Box2 Sepolia](https://sepolia.etherscan.io/address/0x201377a09F58EdcE8e88a6B7C3F3d8A714107c36)
+
 # Update: Head to Cyfrin Updraft
 
 > **ℹ️ Important:** This repo is no longer maintained; we invite all people learning Solidity to head to [Cyfrin Updraft](https://updraft.cyfrin.io/)! The 100% free #1 smart contract education platform on earth. Developed with love by Patrick & Cyfrin <3
