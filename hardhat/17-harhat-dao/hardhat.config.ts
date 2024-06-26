@@ -30,6 +30,7 @@ const config: HardhatUserConfig = {
       url: SEPOLIA_RPC_URL,
       accounts: [PRIVATE_KEY],
       chainId: 11155111,
+      allowUnlimitedContractSize: true,
     },
   },
   solidity: "0.8.9",
